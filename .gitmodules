@@ -1,0 +1,3 @@
+[submodule "polarbear"]
+	path = libraries/polarbear
+	url = https://github.com/lfowles/polarbear.git
