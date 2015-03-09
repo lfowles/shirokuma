@@ -1,17 +1,25 @@
 # shirokuma
 Sudoku terminal game
 
-Clone:  
-`git clone https://github.com/lfowles/shirokuma.git`
+Clone:
 
-Initialize submodules:  
-`git submodule update --recursive --init`
+    git clone https://github.com/lfowles/shirokuma.git
+    cd shirokuma
 
-Create and initialize build directory:  
-`mkdir build && cd build && cmake ..`
+Initialize submodules:
 
-Compile:  
-`make`
+    git submodule update --recursive --init
 
-Install (optional):  
-`make install`
+Create and initialize build directory:
+
+    mkdir build
+    cd build 
+    cmake ..
+
+Compile:
+
+    make
+
+Install (optional):
+
+    make install
