@@ -1,0 +1,2 @@
+# shirokuma
+Sudoku terminal game
