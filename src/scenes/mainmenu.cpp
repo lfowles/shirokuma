@@ -1,5 +1,6 @@
 #include <shirokuma/scenes/mainmenu.hpp>
 
+#include <polarbear/config.hpp>
 #include <polarbear/systems/cursesrender.hpp>
 #include <polarbear/systems/cursesinput.hpp>
 
@@ -13,8 +14,8 @@ void MainMenuScene::Init(void)
 
     auto curses = CursesSingleton::GetCurses();
     systems.SetUpdateTime(update_duration);
-    auto rendering_system = new CursesRenderSystem(dispatch, render_duration);
 
+    auto rendering_system = new CursesRenderSystem(dispatch, render_duration);
     systems.AddSystem(rendering_system);
 
     auto input_system = new CursesInputSystem(dispatch, curses->stdscr);

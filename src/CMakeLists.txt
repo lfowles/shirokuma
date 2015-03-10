@@ -3,6 +3,7 @@ project(shirokuma)
 set(SOURCE_FILES main.cpp
                  game.cpp
                  scenes/mainmenu.cpp
+                 scenes/intro.cpp
                  systems/sudokulogic.cpp)
 
 add_executable(shirokuma ${SOURCE_FILES})
