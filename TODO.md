@@ -10,7 +10,7 @@ Release v1.0:
 - [ ] Prospective cell marking
   - [ ] Redo layout to support 9 markers
   - [ ] Mark cells in the same row, column, or box with the same markers. Possibly a different color for each number? 
-- [ ] Intro screen, skippable with command line flag 
+- [ ] Intro screen, skippable with command line flag [#1](https://github.com/lfowles/shirokuma/issues/1)
 - [ ] Win screen, which will restart or quit the game
 - [ ] Load sudoku files - [file formats](http://www.sudocue.net/fileformats.php)
   - [ ] Basic machinery
