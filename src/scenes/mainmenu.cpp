@@ -1,6 +1,5 @@
 #include <shirokuma/scenes/mainmenu.hpp>
 
-#include <polarbear/config.hpp>
 #include <polarbear/systems/cursesrender.hpp>
 #include <polarbear/systems/cursesinput.hpp>
 
@@ -10,16 +9,14 @@
 void MainMenuScene::Init(void)
 {
     auto logic_system = new SudokuLogicSystem(dispatch);
-    //systems.AddSystem(logic_system);
-
-    systems.SetUpdateTime(update_duration);
+    systems.AddSystem(logic_system);
 
     auto rendering_system = new CursesRenderSystem(dispatch, render_duration);
-//    systems.AddSystem(rendering_system);
+    systems.AddSystem(rendering_system);
 
     auto curses = CursesSingleton::GetCurses();
     auto input_system = new CursesInputSystem(dispatch, curses->stdscr);
-//    systems.AddSystem(input_system);
+    systems.AddSystem(input_system);
 
     {
         Entity a;

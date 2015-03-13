@@ -120,6 +120,11 @@ SudokuLogicSystem::SudokuLogicSystem(EventDispatch * dispatch) :
     system_mask.set(SpriteComponent::type);
 }
 
+SudokuLogicSystem::~SudokuLogicSystem(void)
+{
+    dispatch->Unregister(EventType::Input, dispatch_id);
+}
+
 void SudokuLogicSystem::HandleInput(EventPtr & event)
 {
     auto input_event = std::dynamic_pointer_cast<InputEvent>(event);

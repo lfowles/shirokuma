@@ -19,7 +19,7 @@ class SudokuLogicSystem : public System
 {
 public:
     SudokuLogicSystem(EventDispatch* dispatch);
-
+    ~SudokuLogicSystem(void);
     void HandleInput(EventPtr& event);
 
     virtual void update(ms time_elapsed) override;

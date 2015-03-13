@@ -1,6 +1,5 @@
 #include <shirokuma/scenes/intro.hpp>
 
-#include <polarbear/config.hpp>
 #include <polarbear/cursessingleton.hpp>
 #include <polarbear/systems/cursesrender.hpp>
 #include <polarbear/systems/cursesinput.hpp>
@@ -14,7 +13,6 @@ void IntroScene::Init(void)
     dispatch->Register(EventType::Input, delegate, dispatch_id);
 
     auto curses = CursesSingleton::GetCurses();
-    systems.SetUpdateTime(update_duration);
 
     auto rendering_system = new CursesRenderSystem(dispatch, render_duration);
     systems.AddSystem(rendering_system);
@@ -38,6 +36,7 @@ void IntroScene::Update(ms elapsed)
     timer += elapsed;
     if (timer.count() > 5)
     {
+        dispatch->Unregister(EventType::Input, dispatch_id);
         auto next_scene = std::make_shared<MainMenuScene>(*dispatch);
         auto event = std::make_shared<SceneChangeEvent>(SceneChangeEvent::Operation::Replace, next_scene);
         dispatch->QueueEvent(event);
