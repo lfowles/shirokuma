@@ -10,8 +10,8 @@
 #include <iostream>
 void IntroScene::Init(void)
 {
-    EventDelegate delegate = std::bind(&IntroScene::handle_input, this, std::placeholders::_1);
-    dispatch->Register(EventType::Input, delegate);
+    auto delegate = std::make_shared<EventDelegateMemberFunction<IntroScene>>(this, std::mem_fn(&IntroScene::handle_input));
+    dispatch->Register(EventType::Input, delegate, dispatch_id);
 
     auto curses = CursesSingleton::GetCurses();
     systems.SetUpdateTime(update_duration);
@@ -47,10 +47,9 @@ void IntroScene::Update(ms elapsed)
 // TODO: unregister for input
 void IntroScene::handle_input(EventPtr &event)
 {
+    dispatch->Unregister(EventType::Input, dispatch_id);
     auto next_scene = std::make_shared<MainMenuScene>(*dispatch);
     auto scene_change_event = std::make_shared<SceneChangeEvent>(SceneChangeEvent::Operation::Replace, next_scene);
     dispatch->QueueEvent(scene_change_event);
     std::cout << "handling" << std::endl;
-    EventDelegate delegate = std::bind(&IntroScene::handle_input, this, std::placeholders::_1);
-    dispatch->Unregister(EventType::Input, delegate);
 }

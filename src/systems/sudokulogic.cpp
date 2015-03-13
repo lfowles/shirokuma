@@ -111,8 +111,8 @@ bool SudokuBoard::solved(void)
 SudokuLogicSystem::SudokuLogicSystem(EventDispatch * dispatch) :
         System(dispatch), selected_row(0), selected_col(0), entered_value(0), entering_value(false)
 {
-    EventDelegate delegate = std::bind(&SudokuLogicSystem::HandleInput, this, std::placeholders::_1);
-    dispatch->Register(EventType::Input, delegate);
+    auto delegate = std::make_shared<EventDelegateMemberFunction<SudokuLogicSystem>>(this, std::mem_fn(&SudokuLogicSystem::HandleInput));
+    dispatch->Register(EventType::Input, delegate, dispatch_id);
 
     system_mask.set(CellPosComponent::type);
     system_mask.set(CellTypeComponent::type);

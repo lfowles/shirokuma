@@ -10,16 +10,16 @@
 void MainMenuScene::Init(void)
 {
     auto logic_system = new SudokuLogicSystem(dispatch);
-    systems.AddSystem(logic_system);
+    //systems.AddSystem(logic_system);
 
-    auto curses = CursesSingleton::GetCurses();
     systems.SetUpdateTime(update_duration);
 
     auto rendering_system = new CursesRenderSystem(dispatch, render_duration);
-    systems.AddSystem(rendering_system);
+//    systems.AddSystem(rendering_system);
 
+    auto curses = CursesSingleton::GetCurses();
     auto input_system = new CursesInputSystem(dispatch, curses->stdscr);
-    systems.AddSystem(input_system);
+//    systems.AddSystem(input_system);
 
     {
         Entity a;
@@ -86,5 +86,5 @@ void MainMenuScene::Init(void)
 
 void MainMenuScene::Update(ms elapsed)
 {
-        systems.update(elapsed);
+    systems.update(elapsed);
 }
