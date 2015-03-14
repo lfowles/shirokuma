@@ -19,7 +19,7 @@ public:
 
     virtual void Update(ms elapsed) override;
 
-    virtual void Destroy(void) override {};
+    virtual void Destroy(void) override;
 private:
     void handle_input(EventPtr& event);
 

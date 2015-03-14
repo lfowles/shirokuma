@@ -36,7 +36,6 @@ void IntroScene::Update(ms elapsed)
     timer += elapsed;
     if (timer.count() > 5)
     {
-        dispatch->Unregister(EventType::Input, dispatch_id);
         auto next_scene = std::make_shared<MainMenuScene>(*dispatch);
         auto event = std::make_shared<SceneChangeEvent>(SceneChangeEvent::Operation::Replace, next_scene);
         dispatch->QueueEvent(event);
@@ -46,9 +45,13 @@ void IntroScene::Update(ms elapsed)
 // TODO: unregister for input
 void IntroScene::handle_input(EventPtr &event)
 {
-    dispatch->Unregister(EventType::Input, dispatch_id);
     auto next_scene = std::make_shared<MainMenuScene>(*dispatch);
     auto scene_change_event = std::make_shared<SceneChangeEvent>(SceneChangeEvent::Operation::Replace, next_scene);
     dispatch->QueueEvent(scene_change_event);
     std::cout << "handling" << std::endl;
+}
+
+void IntroScene::Destroy(void)
+{
+    dispatch->Unregister(EventType::Input, dispatch_id);
 }
