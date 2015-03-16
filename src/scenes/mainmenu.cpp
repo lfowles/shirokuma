@@ -19,7 +19,7 @@ void MainMenuScene::Init(void)
     systems.AddSystem(input_system);
 
     {
-        Entity a;
+        Entity a{};
         auto pos = std::unique_ptr<PositionComponent>(new PositionComponent(0, 0, 1));
         auto sprite = std::unique_ptr<SpriteComponent>(new SpriteComponent(RESOURCE_PATH "test.sprite"));
         auto movement = std::unique_ptr<KeyboardControlledMovementComponent>(new KeyboardControlledMovementComponent(1));
@@ -29,7 +29,7 @@ void MainMenuScene::Init(void)
         systems.AddEntity(a);
     }
     {
-        Entity board_highlights;
+        Entity board_highlights{};
         auto pos = std::unique_ptr<PositionComponent>(new PositionComponent(0, 0, 2));
         auto sprite = std::unique_ptr<SpriteComponent>(new SpriteComponent(RESOURCE_PATH "test_overlay.sprite"));
         sprite->attr = A_BOLD;
@@ -41,7 +41,7 @@ void MainMenuScene::Init(void)
         systems.AddEntity(board_highlights);
     }
     {
-        Entity state;
+        Entity state{};
         auto state_component = std::unique_ptr<StateComponent>(new StateComponent());
         state.AddComponent(state_component);
         systems.AddEntity(state);
@@ -64,7 +64,7 @@ void MainMenuScene::Init(void)
 
         for (int c = 0; c < 9; c++)
         {
-            Entity cell;
+            Entity cell{};
             auto x = 4 * c + 4;
             auto pos = std::unique_ptr<PositionComponent>(new PositionComponent(x, y, 1));
             cell.AddComponent(pos);

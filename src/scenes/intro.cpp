@@ -6,7 +6,6 @@
 
 #include <shirokuma/scenes/mainmenu.hpp>
 
-#include <iostream>
 void IntroScene::Init(void)
 {
     auto delegate = std::make_shared<EventDelegateMemberFunction<IntroScene>>(this, std::mem_fn(&IntroScene::handle_input));
@@ -23,7 +22,7 @@ void IntroScene::Init(void)
     {
         Entity splash;
         auto pos = std::unique_ptr<PositionComponent>(new PositionComponent(0, 0, 1));
-        auto sprite = std::unique_ptr<SpriteComponent>(new SpriteComponent(RESOURCE_PATH "intro.sprite"));
+        auto sprite = std::unique_ptr<SpriteComponent>(new SpriteComponent(RESOURCE_PATH "intro/splash.sprite"));
         splash.AddComponent(pos);
         splash.AddComponent(sprite);
         systems.AddEntity(splash);
@@ -48,7 +47,6 @@ void IntroScene::handle_input(EventPtr &event)
     auto next_scene = std::make_shared<MainMenuScene>(*dispatch);
     auto scene_change_event = std::make_shared<SceneChangeEvent>(SceneChangeEvent::Operation::Replace, next_scene);
     dispatch->QueueEvent(scene_change_event);
-    std::cout << "handling" << std::endl;
 }
 
 void IntroScene::Destroy(void)
