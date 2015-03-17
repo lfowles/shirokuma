@@ -20,6 +20,8 @@ public:
     virtual void Update(ms elapsed) override;
 
     virtual void Destroy(void) override {};
+
+    void BoardSolved(EventPtr& event);
 private:
     SystemManager systems;
     EventDispatch* dispatch;

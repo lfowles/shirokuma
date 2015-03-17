@@ -5,9 +5,25 @@
 
 #include <shirokuma/components/sudokucomponents.hpp>
 #include <shirokuma/systems/sudokulogic.hpp>
+#include <shirokuma/events/events.hpp>
+
+
+void MainMenuScene::BoardSolved(EventPtr &event)
+{
+    Entity congrats{};
+    auto pos = std::unique_ptr<PositionComponent>(new PositionComponent(0, 10, 3));
+    auto sprite = std::unique_ptr<SpriteComponent>(new SpriteComponent("Congratulations! You solved the sudoku.\n Stats will be here some time.", 0x00));
+    sprite->attr = A_REVERSE | A_BOLD;
+    congrats.AddComponent(pos);
+    congrats.AddComponent(sprite);
+    systems.AddEntity(congrats);
+}
 
 void MainMenuScene::Init(void)
 {
+    auto delegate = std::make_shared<EventDelegateMemberFunction<MainMenuScene>>(this, std::mem_fn(&MainMenuScene::BoardSolved));
+    dispatch->Register(SolvedEvent::type, delegate, dispatch_id);
+
     auto logic_system = new SudokuLogicSystem(dispatch);
     systems.AddSystem(logic_system);
 
@@ -40,23 +56,23 @@ void MainMenuScene::Init(void)
         board_highlights.AddComponent(movement);
         systems.AddEntity(board_highlights);
     }
-    {
-        Entity state{};
-        auto state_component = std::unique_ptr<StateComponent>(new StateComponent());
-        state.AddComponent(state_component);
-        systems.AddEntity(state);
-    }
+//    {
+//        Entity state{};
+//        auto state_component = std::unique_ptr<StateComponent>(new StateComponent());
+//        state.AddComponent(state_component);
+//        systems.AddEntity(state);
+//    }
 
     std::array<int, 81> values = {
-            2,9,5,7,4,3,8,6,1,
-            4,3,1,8,7,6,9,2,7,
-            8,7,6,1,2,9,5,4,3,
-            3,8,7,4,5,9,2,1,6,
-            6,1,2,3,8,7,4,9,5,
-            5,4,9,2,1,6,7,3,8,
-            7,6,3,5,3,4,1,8,9,
-            9,2,8,6,7,1,3,5,4,
-            1,5,4,9,3,8,6,7,2};
+            0,0,0,6,0,0,1,9,0,
+            0,2,0,0,0,0,0,0,5,
+            0,3,4,5,7,9,0,0,0,
+            0,8,9,4,0,0,0,0,0,
+            4,0,0,8,5,6,0,0,2,
+            0,0,0,0,0,7,8,1,0,
+            0,0,0,9,8,1,2,5,0,
+            7,0,0,0,0,0,0,8,0,
+            0,5,1,0,0,2,0,0,0};
 
     for (int r = 0; r < 9; r++)
     {
@@ -68,14 +84,14 @@ void MainMenuScene::Init(void)
             auto x = 4 * c + 4;
             auto pos = std::unique_ptr<PositionComponent>(new PositionComponent(x, y, 1));
             cell.AddComponent(pos);
-            auto grid_pos = std::unique_ptr<CellPosComponent>(new CellPosComponent(c, r));
-            cell.AddComponent(grid_pos);
-            auto cell_value = std::unique_ptr<CellValueComponent>(new CellValueComponent(values[r*9+c]));
-            cell.AddComponent(cell_value);
+            auto cell_component = std::unique_ptr<CellComponent>(new CellComponent(CellComponent::CellType::Free, values[r*9+c], c, r));
+            if (cell_component->value != 0)
+            {
+                cell_component->cell_type = CellComponent::CellType::Starting;
+            }
+            cell.AddComponent(cell_component);
             auto sprite = std::unique_ptr<SpriteComponent>(new SpriteComponent(0x30 + values[r*9+c]));
             cell.AddComponent(sprite);
-            auto cell_type = std::unique_ptr<CellTypeComponent>(new CellTypeComponent(CellTypeComponent::CellType::Free));
-            cell.AddComponent(cell_type);
             systems.AddEntity(cell);
         }
     }

@@ -3,17 +3,7 @@
 
 #include <polarbear/components/components.hpp>
 
-class CellValueComponent : public BaseComponent<CellValueComponent>
-{
-public:
-
-    CellValueComponent(void) : value(0) {};
-    CellValueComponent(int val) : value(val) {};
-
-    int value;
-};
-
-class CellTypeComponent : public BaseComponent<CellTypeComponent>
+class CellComponent : public BaseComponent<CellComponent>
 {
 public:
     enum class CellType
@@ -22,23 +12,12 @@ public:
         Locked,
         Free
     };
-    CellTypeComponent(CellType t) : cell_type(t) {};
+
+    CellComponent(CellType t, int val, int x, int y) :
+            cell_type(t), value(val), x(x), y(y) {};
 
     CellType cell_type;
-};
-
-class StateComponent : public BaseComponent<StateComponent>
-{
-public:
-    StateComponent(void) : selected_row(0), selected_col(0) {};
-    int selected_col;
-    int selected_row;
-};
-
-class CellPosComponent : public BaseComponent<CellPosComponent>
-{
-public:
-    CellPosComponent(int x, int y) : x(x), y(y) {};
+    int value;
     int x, y;
 };
 

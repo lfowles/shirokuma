@@ -2,18 +2,7 @@
 #define _SHIROKUMA_SYSTEMS_SUDOKULOGIC_HPP_
 
 #include <polarbear/systems/systems.hpp>
-
-class SudokuBoard
-{
-public:
-    SudokuBoard(void);
-    void set(int row, int col, int value);
-    bool valid(int row, int col);
-    bool solved(void);
-    int& get(int row, int col);
-private:
-    std::array<int, 81> cells;
-};
+#include <shirokuma/sudokuboard.hpp>
 
 class SudokuLogicSystem : public System
 {
@@ -27,10 +16,12 @@ public:
     int selected_row;
     int selected_col;
     bool entering_value;
+    bool toggle_lock;
     int entered_value;
 
 private:
     SudokuBoard board;
+    bool gameover;
 
 };
 

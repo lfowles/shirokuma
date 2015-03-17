@@ -2,6 +2,7 @@ project(shirokuma)
 
 set(SOURCE_FILES main.cpp
                  game.cpp
+                 sudokuboard.cpp
                  scenes/mainmenu.cpp
                  scenes/intro.cpp
                  systems/sudokulogic.cpp)

@@ -9,7 +9,7 @@
 void IntroScene::Init(void)
 {
     auto delegate = std::make_shared<EventDelegateMemberFunction<IntroScene>>(this, std::mem_fn(&IntroScene::handle_input));
-    dispatch->Register(EventType::Input, delegate, dispatch_id);
+    dispatch->Register<InputEvent>(delegate, dispatch_id);
 
     auto curses = CursesSingleton::GetCurses();
 
@@ -51,5 +51,5 @@ void IntroScene::handle_input(EventPtr &event)
 
 void IntroScene::Destroy(void)
 {
-    dispatch->Unregister(EventType::Input, dispatch_id);
+    dispatch->UnregisterAll(dispatch_id);
 }
