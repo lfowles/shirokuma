@@ -1,15 +1,15 @@
-#ifndef _SHIROKUMA_SCENES_MAINMENU_HPP_
-#define _SHIROKUMA_SCENES_MAINMENU_HPP_
+#ifndef _SHIROKUMA_SCENES_SHIROKUMA_HPP_
+#define _SHIROKUMA_SCENES_SHIROKUMA_HPP_
 
 #include <polarbear/systems/systemmanager.hpp>
 #include <polarbear/events/event.hpp>
 #include <polarbear/scenes/scene.hpp>
 
-class MainMenuScene : public Scene
+class SudokuScene : public Scene
 {
 
 public:
-    MainMenuScene(EventDispatch& dispatch) : dispatch(&dispatch) {};
+    SudokuScene(EventDispatch& dispatch) : dispatch(&dispatch) {};
 
     virtual void Init(void) override;
 
@@ -27,4 +27,4 @@ private:
     EventDispatch* dispatch;
 };
 
-#endif // _SHIROKUMA_SCENES_MAINMENU_HPP_
+#endif // _SHIROKUMA_SCENES_SHIROKUMA_HPP_

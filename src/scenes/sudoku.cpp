@@ -1,4 +1,4 @@
-#include <shirokuma/scenes/mainmenu.hpp>
+#include <shirokuma/scenes/sudoku.hpp>
 
 #include <polarbear/systems/cursesrender.hpp>
 #include <polarbear/systems/cursesinput.hpp>
@@ -8,7 +8,7 @@
 #include <shirokuma/events/events.hpp>
 
 
-void MainMenuScene::BoardSolved(EventPtr &event)
+void SudokuScene::BoardSolved(EventPtr &event)
 {
     Entity congrats{};
     auto pos = std::unique_ptr<PositionComponent>(new PositionComponent(0, 10, 3));
@@ -19,9 +19,9 @@ void MainMenuScene::BoardSolved(EventPtr &event)
     systems.AddEntity(congrats);
 }
 
-void MainMenuScene::Init(void)
+void SudokuScene::Init(void)
 {
-    auto delegate = std::make_shared<EventDelegateMemberFunction<MainMenuScene>>(this, std::mem_fn(&MainMenuScene::BoardSolved));
+    auto delegate = std::make_shared<EventDelegateMemberFunction<SudokuScene>>(this, std::mem_fn(&SudokuScene::BoardSolved));
     dispatch->Register(SolvedEvent::type, delegate, dispatch_id);
 
     auto logic_system = new SudokuLogicSystem(dispatch);
@@ -97,7 +97,7 @@ void MainMenuScene::Init(void)
     }
 }
 
-void MainMenuScene::Update(ms elapsed)
+void SudokuScene::Update(ms elapsed)
 {
     systems.update(elapsed);
 }

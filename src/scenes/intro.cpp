@@ -4,7 +4,7 @@
 #include <polarbear/systems/cursesrender.hpp>
 #include <polarbear/systems/cursesinput.hpp>
 
-#include <shirokuma/scenes/mainmenu.hpp>
+#include <shirokuma/scenes/sudoku.hpp>
 
 void IntroScene::Init(void)
 {
@@ -35,7 +35,7 @@ void IntroScene::Update(ms elapsed)
     timer += elapsed;
     if (timer.count() > 5)
     {
-        auto next_scene = std::make_shared<MainMenuScene>(*dispatch);
+        auto next_scene = std::make_shared<SudokuScene>(*dispatch);
         auto event = std::make_shared<SceneChangeEvent>(SceneChangeEvent::Operation::Replace, next_scene);
         dispatch->QueueEvent(event);
     }
@@ -44,7 +44,7 @@ void IntroScene::Update(ms elapsed)
 // TODO: unregister for input
 void IntroScene::handle_input(EventPtr &event)
 {
-    auto next_scene = std::make_shared<MainMenuScene>(*dispatch);
+    auto next_scene = std::make_shared<SudokuScene>(*dispatch);
     auto scene_change_event = std::make_shared<SceneChangeEvent>(SceneChangeEvent::Operation::Replace, next_scene);
     dispatch->QueueEvent(scene_change_event);
 }
