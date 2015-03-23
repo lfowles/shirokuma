@@ -22,6 +22,8 @@ public:
     virtual void Destroy(void) override {};
 
     void BoardSolved(EventPtr& event);
+
+//    void LoadBoard(EventPtr& event);
 private:
     SystemManager systems;
     EventDispatch* dispatch;

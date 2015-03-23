@@ -21,8 +21,8 @@ void SudokuScene::BoardSolved(EventPtr &event)
 
 void SudokuScene::Init(void)
 {
-    auto delegate = std::make_shared<EventDelegateMemberFunction<SudokuScene>>(this, std::mem_fn(&SudokuScene::BoardSolved));
-    dispatch->Register(SolvedEvent::type, delegate, dispatch_id);
+    auto solved_delegate = std::make_shared<EventDelegateMemberFunction<SudokuScene>>(this, std::mem_fn(&SudokuScene::BoardSolved));
+    dispatch->Register(SolvedEvent::type, solved_delegate, dispatch_id);
 
     auto logic_system = new SudokuLogicSystem(dispatch);
     systems.AddSystem(logic_system);
