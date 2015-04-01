@@ -5,8 +5,8 @@
 #include <shirokuma/components/sudokucomponents.hpp>
 #include <shirokuma/events/events.hpp>
 
-SudokuLogicSystem::SudokuLogicSystem(EventDispatch * dispatch) :
-        System(dispatch), selected_row(0), selected_col(0), entered_value(0), entering_value(false), toggle_lock(false), gameover(false)
+SudokuLogicSystem::SudokuLogicSystem(EventDispatch *dispatch, SystemManager *systems) :
+        System(dispatch, systems), selected_row(0), selected_col(0), entered_value(0), entering_value(false), toggle_lock(false), gameover(false)
 {
     auto delegate = std::make_shared<EventDelegateMemberFunction<SudokuLogicSystem>>(this, std::mem_fn(&SudokuLogicSystem::HandleInput));
     dispatch->Register(InputEvent::type, delegate, dispatch_id);

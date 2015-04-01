@@ -7,7 +7,7 @@
 class SudokuLogicSystem : public System
 {
 public:
-    SudokuLogicSystem(EventDispatch* dispatch);
+    SudokuLogicSystem(EventDispatch* dispatch, SystemManager *systems);
     ~SudokuLogicSystem(void);
     void HandleInput(EventPtr& event);
 

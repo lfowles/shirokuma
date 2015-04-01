@@ -5,6 +5,7 @@
 
 #include <shirokuma/components/sudokucomponents.hpp>
 #include <shirokuma/systems/sudokulogic.hpp>
+#include <shirokuma/systems/intent.hpp>
 #include <shirokuma/events/events.hpp>
 
 
@@ -24,15 +25,18 @@ void SudokuScene::Init(void)
     auto solved_delegate = std::make_shared<EventDelegateMemberFunction<SudokuScene>>(this, std::mem_fn(&SudokuScene::BoardSolved));
     dispatch->Register(SolvedEvent::type, solved_delegate, dispatch_id);
 
-    auto logic_system = new SudokuLogicSystem(dispatch);
+    auto logic_system = new SudokuLogicSystem(dispatch, &systems);
     systems.AddSystem(logic_system);
 
-    auto rendering_system = new CursesRenderSystem(dispatch, render_duration);
+    auto rendering_system = new CursesRenderSystem(dispatch, &systems, render_duration);
     systems.AddSystem(rendering_system);
 
     auto curses = CursesSingleton::GetCurses();
-    auto input_system = new CursesInputSystem(dispatch, curses->stdscr);
+    auto input_system = new CursesInputSystem(dispatch, &systems, curses->stdscr);
     systems.AddSystem(input_system);
+
+    auto intent_system = new IntentSystem(dispatch, &systems);
+    systems.AddSystem(intent_system);
 
     {
         Entity a{};
